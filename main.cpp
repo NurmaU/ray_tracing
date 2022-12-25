@@ -31,6 +31,7 @@ int create_image(){
 int main(){
     // create_image();
     vec3 v1(1,2,3), v2(0, 1, 2);
-    std::cout << (-v1).length_squared() << std::endl;
+    // std::cout << (-v1).length_squared() << std::endl;
+    std::cout << unit_vector(v1).length_squared() << std::endl; 
     return 1;
 }
