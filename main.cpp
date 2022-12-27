@@ -34,21 +34,16 @@ int create_image() {
     const int max_depth = 20;
 
     // Camera
-    camera cam;
+    camera cam(90.0, aspect_ratio);
 
     // World
     hittable_list world;
+    auto R = cos(pi / 4);
+    auto material_left = make_shared<lambertian>(color(0, 0, 1));
+    auto material_right = make_shared<lambertian>(color(1, 0, 0));
 
-    auto material_ground = make_shared<lambertian>(color(0.8, 0.8, 0.0));
-    auto material_center = make_shared<lambertian>(color(0.1, 0.2, 0.5));
-
-    auto material_left = make_shared<dielectric>(1.5);
-    auto material_right = make_shared<metal>(color(0.8, 0.6, 0.2), 0.0);
-
-    world.add(make_shared<sphere>(point3(0, -100.5, -1), 100, material_ground));
-    world.add(make_shared<sphere>(point3(0, 0, -1), 0.5, material_center));
-    world.add(make_shared<sphere>(point3(-1, 0, -1), 0.5, material_left));
-    world.add(make_shared<sphere>(point3(1, 0, -1), 0.5, material_right));
+    world.add(make_shared<sphere>(point3(-R, 0, -1), R, material_left));
+    world.add(make_shared<sphere>(point3(R, 0, -1), R, material_right));
 
     // Render
     std::cout << "P3\n" << image_width << " " << image_height << "\n255\n";

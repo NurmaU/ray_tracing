@@ -11,9 +11,10 @@ class camera {
     vec3 vertical;
 
    public:
-    camera() {
-        auto aspect_ratio = 16.0 / 9.0;
-        auto viewport_height = 2.0;
+    camera(double vfov, double aspect_ratio) {
+        auto theta = degrees_to_radians(vfov);
+        auto h = tan(theta / 2);
+        auto viewport_height = 2.0 * h;
         auto viewport_width = viewport_height * aspect_ratio;
         auto focal_length = 1.0;
 
