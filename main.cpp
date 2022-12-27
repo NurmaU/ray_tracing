@@ -1,3 +1,4 @@
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -77,7 +78,7 @@ int create_image() {
     const auto aspect_ratio = 3.0 / 2.0;
     const int image_width = 400;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
-    const int samples_per_pixel = 200;
+    const int samples_per_pixel = 20;
     const int max_depth = 10;
 
     // Camera
@@ -93,9 +94,12 @@ int create_image() {
     camera cam(lookfrom, lookat, vup, 20, aspect_ratio, aperture,
                dist_to_focus);
     int index = 0;
+    auto start = std::chrono::high_resolution_clock::now();
     render(image_width, image_height, samples_per_pixel, cam, world, max_depth,
            index);
-
+    auto duration = std::chrono::high_resolution_clock::now() - start;
+    auto timeInSeconds = std::chrono::duration<double>(duration).count();
+    std::cerr << timeInSeconds << std::endl;
     std::cerr << "\nDone\n";
 
     return 1;
